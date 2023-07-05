@@ -1,0 +1,23 @@
+<ejs-dialog [visible]="false" [isModal]="true" showCloseIcon="true" width='400px' zIndex="1100">
+  <div height="1200px">
+    <img [src]="poster"/>
+    <table>
+      <tr><td><b>Title:</b></td><td>{{details?.Title}}</td></tr>
+      <tr><td><b>Released:</b></td><td>{{details?.Released}}</td></tr>
+      <tr><td><b>Writer:</b></td><td>{{details?.Writer}}</td></tr>
+      <tr><td><b>Director:</b></td><td>{{details?.Director}}</td></tr>
+      <tr><td><b>Actors:</b></td><td>{{details?.Actors}}</td></tr>
+      <tr><td><b>Genre:</b></td><td>{{details?.Genre}}</td></tr>
+      <tr><td><b>Plot:</b></td><td>{{details?.Plot}}</td></tr>
+    </table>
+    <table *ngIf="!details?.folder && user">
+      <tr>
+        <td><ejs-combobox #folder></ejs-combobox></td>
+        <td><button ejs-button isPrimary="true" (click)="save(folder.value)">Save</button></td>
+      </tr>
+    </table>
+    <table *ngIf="details?.folder">
+      <tr><td><button ejs-button isPrimary="true" (click)="delete()" [disabled]="!user">Delete</button></td></tr>
+    </table>
+  </div>
+</ejs-dialog>

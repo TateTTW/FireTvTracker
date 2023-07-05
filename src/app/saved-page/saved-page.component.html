@@ -1,0 +1,23 @@
+<div id="filterBar">
+  <table>
+    <tr><td><div id="foldersLink" *ngIf="folder" (click)="folderNav()"><i class="fa fa-chevron-left"></i>Folders</div></td></tr>
+  </table>
+  <table>
+    <tr><td><label *ngIf="folder" id="folderHeader">{{folder}}</label></td></tr>
+  </table>
+  <table *ngIf="folder">
+    <tr><td><button ejs-button isPrimary="true" (click)="deleteFolder()">Delete Folder</button></td></tr>
+  </table>
+</div>
+<div id="dashDiv">
+  <ejs-dashboardlayout #savedDashboard
+                       [columns]="cols"
+                       [cellAspectRatio]="14/10"
+                       [cellSpacing]="[20, 20]"
+                       [allowFloating]="true"
+                       [allowDragging]="false"
+                       [mediaQuery]="'max-width: 330px'"
+                       (created)="dashCreated()">
+  </ejs-dashboardlayout>
+</div>
+<media-item-dialog (showSpinner)="showSpinner.emit()" (hideSpinner)="hideSpinner.emit()"></media-item-dialog>

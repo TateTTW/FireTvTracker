@@ -1,0 +1,27 @@
+<div id="header">
+  <h1 id="title">Tv Tracker</h1>
+  <div id="loginBtn" *ngIf="!user">
+    <button ejs-button isPrimary="true" (click)="login()">Login</button>
+  </div>
+</div>
+<ejs-tab>
+  <e-tabitems>
+    <e-tabitem>
+      <ng-template #headerText>
+        Browse
+      </ng-template>
+      <ng-template #content>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()"></browse-page>
+      </ng-template>
+    </e-tabitem>
+    <e-tabitem *ngIf="user">
+      <ng-template #headerText>
+        Saved
+      </ng-template>
+      <ng-template #content>
+        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()"></saved-page>
+      </ng-template>
+    </e-tabitem>
+  </e-tabitems>
+</ejs-tab>
+<div id="spinnerDiv"></div>

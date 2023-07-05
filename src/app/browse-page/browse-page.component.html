@@ -1,0 +1,21 @@
+<div id="searchBar">
+  <table>
+    <tr>
+      <td><ejs-radiobutton #movie label="Movie" value="Movie" name="type" checked="true"></ejs-radiobutton></td>
+      <td><ejs-radiobutton label="Tv" value="Tv" name="type"></ejs-radiobutton></td>
+      <td><ejs-textbox #searchTxt></ejs-textbox></td>
+      <td><button ejs-button isPrimary=true (click)="search({text: searchTxt.value, isMovie: movie.checked})">Search</button></td>
+    </tr>
+  </table>
+</div>
+<div id="dashDiv">
+  <ejs-dashboardlayout #browseDashboard
+                       [columns]="5"
+                       [cellAspectRatio]="7/10"
+                       [cellSpacing]="[20, 20]"
+                       [allowFloating]="true"
+                       [allowDragging]="false"
+                       [mediaQuery]="'max-width: 330px'">
+  </ejs-dashboardlayout>
+</div>
+<media-item-dialog (showSpinner)="showSpinner.emit()" (hideSpinner)="hideSpinner.emit()"></media-item-dialog>
