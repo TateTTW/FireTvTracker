@@ -18,6 +18,18 @@ export class BrowsePageComponent implements OnInit, AfterViewInit {
 
   response: MediaResponse = { Search: [], totalResults: '0', Response: 'True'}
 
+  text = "";
+  isMovie = true;
+  page = 1;
+
+  get showPrevNav(): boolean {
+    return this.page > 1;
+  }
+
+  get showNextNav(): boolean {
+    return parseInt(this.response.totalResults) > (this.page * 10);
+  }
+
   constructor(private imdbService: ImdbService) { }
 
   ngOnInit(): void {
@@ -25,17 +37,32 @@ export class BrowsePageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.search({ text: "Movie", isMovie: true });
+    this.search({ text: "Movie", isMovie: true, page: 1 });
   }
 
-  async search(param: { text: string; isMovie: boolean }) {
-    const type = param.isMovie ? 'movie' : 'series';
+  async search(param: { text: string; isMovie: boolean; page: number }) {
+    this.showSpinner.emit();
+
+    this.text = param.text;
+    this.isMovie = param.isMovie;
+    this.page = param.page;
+
     try {
-      this.response = await this.imdbService.browse(param.text, type, 1).toPromise();
+      this.response = await this.imdbService.browse(this.text, this.isMovie ? 'movie' : 'series', this.page).toPromise();
       this.buildPanels(this.response);
     } catch (e) {
       console.log(e);
+    } finally {
+      this.hideSpinner.emit();
     }
+  }
+
+  getPrevPage() {
+    this.search({ text: this.text, isMovie: this.isMovie, page: --this.page });
+  }
+
+  getNextPage() {
+    this.search({ text: this.text, isMovie: this.isMovie, page: ++this.page });
   }
 
   private buildPanels(response: MediaResponse) {
@@ -50,8 +77,14 @@ export class BrowsePageComponent implements OnInit, AfterViewInit {
         row += 1;
       }
 
-      this.dashboard?.addPanel(
-        { "sizeX": 1, "sizeY": 1, "row": row, "col": col++, "content": `<img id="${item.imdbID}" class="mediaItem" src="${item.Poster}"/>` }
+      const poster = item.Poster != "N/A" ? item.Poster : "assets/images/noImage.png"
+
+      this.dashboard?.addPanel({
+        "sizeX": 1,
+        "sizeY": 1,
+        "row": row,
+        "col": col++,
+        "content": `<img id="${item.imdbID}" class="mediaItem" src="${poster}"/>` }
       );
       const element = document.getElementById(item.imdbID);
       if (element) {
@@ -60,7 +93,7 @@ export class BrowsePageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async openDialog(event: any) {
+  private async openDialog(event: any) {
     const details = await this.imdbService.getDetails(event.target.id).toPromise();
     this.dialog?.show(details);
   }

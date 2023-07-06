@@ -41,30 +41,29 @@ export class SavedPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mediaItemsSub?.unsubscribe();
   }
 
+  deleteFolder() {
+    const dialog = DialogUtility.confirm({
+      title: "Confirm",
+      content: "Are you sure you want to delete this folder and all of it's contents?",
+      okButton: {
+        text: "Yes",
+        click: async () => {
+          if (this.folder) {
+            this.showSpinner.emit();
+            await this.fireService.deleteFolder(this.folder);
+            this.hideSpinner.emit();
+            this.folderNav();
+          }
+          dialog.close();
+        }
+      },
+      showCloseIcon: true
+    });
+  }
+
   async dashCreated() {
     await this.fireService.loaded;
     this.getFolders();
-  }
-
-  async openDialog(event: any) {
-    const imdbID = event?.target?.attributes?.imdbID?.value;
-    if (imdbID) {
-      const details = await this.imdbService.getDetails(imdbID).toPromise();
-      details.folder = this.folder;
-      this.dialog?.show(details);
-    }
-  }
-
-  openFolder(event: any) {
-    this.foldersSub?.unsubscribe();
-    const folder = event?.target?.attributes?.folder?.value;
-    if (folder) {
-      this.folder = folder;
-      this.mediaItemsSub = this.fireService.getMediaItems(folder)?.subscribe(docs => {
-        const items = docs.map(doc => JSON.parse(doc.payload.doc.id));
-        this.buildMediaItems(items);
-      });
-    }
   }
 
   folderNav() {
@@ -107,6 +106,18 @@ export class SavedPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private openFolder(event: any) {
+    this.foldersSub?.unsubscribe();
+    const folder = event?.target?.attributes?.folder?.value;
+    if (folder) {
+      this.folder = folder;
+      this.mediaItemsSub = this.fireService.getMediaItems(folder)?.subscribe(docs => {
+        const items = docs.map(doc => JSON.parse(doc.payload.doc.id));
+        this.buildMediaItems(items);
+      });
+    }
+  }
+
   private buildMediaItems(items: { imdbID: string, poster: string }[]) {
     this.dashboard?.removeAll();
 
@@ -134,23 +145,12 @@ export class SavedPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  deleteFolder() {
-      const dialog = DialogUtility.confirm({
-        title: "Confirm",
-        content: "Are you sure you want to delete this folder and all of it's contents?",
-        okButton: {
-          text: "Yes",
-          click: async () => {
-            if (this.folder) {
-              this.showSpinner.emit();
-              await this.fireService.deleteFolder(this.folder);
-              this.hideSpinner.emit();
-              this.folderNav();
-            }
-            dialog.close();
-          }
-        },
-        showCloseIcon: true
-      });
+  private async openDialog(event: any) {
+    const imdbID = event?.target?.attributes?.imdbID?.value;
+    if (imdbID) {
+      const details = await this.imdbService.getDetails(imdbID).toPromise();
+      details.folder = this.folder;
+      this.dialog?.show(details);
+    }
   }
 }

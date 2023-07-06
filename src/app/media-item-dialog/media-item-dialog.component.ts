@@ -22,7 +22,7 @@ export class MediaItemDialogComponent implements OnInit {
   }
 
   get poster(): string {
-    return this.details?.Poster ?? "assets/images/noImage.png"
+    return this.details?.Poster && this.details?.Poster != "N/A" ? this.details?.Poster : "assets/images/noImage.png"
   }
 
   constructor(private fireService: FireService) { }
