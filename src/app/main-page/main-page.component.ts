@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Auth, signInWithRedirect} from "@angular/fire/auth";
-import {GoogleAuthProvider , User} from "firebase/auth";
+import {User} from "firebase/auth";
 import {FireService} from "../fire.service";
 import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-popups";
 
@@ -15,19 +14,20 @@ export class MainPageComponent implements OnInit {
     return this.fireService.user;
   }
 
-  constructor(private fireService: FireService, private auth: Auth) { }
+  constructor(private fireService: FireService) { }
 
   ngOnInit(): void {
 
   }
 
   async login() {
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithRedirect(this.auth, provider);
-    } catch (e) {
-      console.log(e);
-    }
+    this.fireService.login();
+    // try {
+    //   const provider = new GoogleAuthProvider();
+    //   await signInWithRedirect(this.auth, provider);
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 
   showSpinner() {
