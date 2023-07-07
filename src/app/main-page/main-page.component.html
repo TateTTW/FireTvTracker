@@ -11,7 +11,7 @@
         Browse
       </ng-template>
       <ng-template #content>
-        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == 'BROWSE'"></browse-page>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == ' Browse '"></browse-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem *ngIf="user">
@@ -19,7 +19,7 @@
         Saved
       </ng-template>
       <ng-template #content>
-        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == 'SAVED'"></saved-page>
+        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == ' Saved '"></saved-page>
       </ng-template>
     </e-tabitem>
   </e-tabitems>

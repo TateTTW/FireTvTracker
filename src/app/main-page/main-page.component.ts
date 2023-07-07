@@ -10,7 +10,7 @@ import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-p
 })
 export class MainPageComponent implements OnInit {
 
-  selectedItem = "BROWSE"
+  selectedItem = " Browse "
 
   get user(): User | null {
     return this.fireService.user;
@@ -57,7 +57,7 @@ export class MainPageComponent implements OnInit {
   }
 
   selecting(event: any) {
-    this.selectedItem = event?.selectingItem?.innerText;
+    this.selectedItem = event?.selectingItem?.textContent;
     console.log(event);
   }
 }
