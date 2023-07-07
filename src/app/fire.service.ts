@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {Auth, getRedirectResult} from "@angular/fire/auth";
-import {User} from "firebase/auth";
+import {Auth, getAuth, getRedirectResult, signInWithPopup} from "@angular/fire/auth";
+import {GoogleAuthProvider, User} from "firebase/auth";
 import {MediaItem} from "./interfaces/media-item";
 import {Observable, Subject} from "rxjs";
 import {DocumentChangeAction} from "@angular/fire/compat/firestore/interfaces";
@@ -19,6 +19,17 @@ export class FireService {
 
   constructor(private auth: Auth, private store: AngularFirestore) {
     this.loaded = this.initUser();
+  }
+
+  async login() {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider).then((result) => {
+        this.user = result.user;
+      }).catch(e => {
+      console.log(e);
+    });
   }
 
   getFolders(): Observable<DocumentChangeAction<any>[]> | void {
