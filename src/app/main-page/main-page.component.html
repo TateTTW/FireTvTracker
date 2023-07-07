@@ -4,14 +4,14 @@
     <button ejs-button isPrimary="true" (click)="login()">Login</button>
   </div>
 </div>
-<ejs-tab>
+<ejs-tab (selecting)="selecting($event)">
   <e-tabitems>
     <e-tabitem>
       <ng-template #headerText>
         Browse
       </ng-template>
       <ng-template #content>
-        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()"></browse-page>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == 'BROWSE'"></browse-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem *ngIf="user">
@@ -19,7 +19,7 @@
         Saved
       </ng-template>
       <ng-template #content>
-        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()"></saved-page>
+        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == 'SAVED'"></saved-page>
       </ng-template>
     </e-tabitem>
   </e-tabitems>

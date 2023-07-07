@@ -10,6 +10,8 @@ import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-p
 })
 export class MainPageComponent implements OnInit {
 
+  selectedItem = "BROWSE"
+
   get user(): User | null {
     return this.fireService.user;
   }
@@ -52,5 +54,10 @@ export class MainPageComponent implements OnInit {
       return acc;
     }, []);
     return style.includes("e-spinner-pane");
+  }
+
+  selecting(event: any) {
+    this.selectedItem = event?.selectingItem?.innerText;
+    console.log(event);
   }
 }
