@@ -9,7 +9,7 @@ import {MediaItemDialogComponent} from "../media-item-dialog/media-item-dialog.c
   templateUrl: './browse-page.component.html',
   styleUrls: ['./browse-page.component.less']
 })
-export class BrowsePageComponent implements OnInit, AfterViewInit {
+export class BrowsePageComponent implements OnInit {
   @ViewChild(DashboardLayoutComponent) private dashboard?: DashboardLayoutComponent;
   @ViewChild(MediaItemDialogComponent) private dialog?: MediaItemDialogComponent;
 
@@ -36,7 +36,7 @@ export class BrowsePageComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
+  dashCreated() {
     this.search({ text: "Movie", isMovie: true, page: 1 });
   }
 

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "firebase/auth";
 import {FireService} from "../fire.service";
 import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-popups";
+import {TabComponent} from "@syncfusion/ej2-angular-navigations";
 
 @Component({
   selector: 'main-page',
@@ -9,8 +10,9 @@ import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-p
   styleUrls: ['./main-page.component.less']
 })
 export class MainPageComponent implements OnInit {
+  @ViewChild(TabComponent) private tabs?: TabComponent;
 
-  selectedItem = " Browse "
+  selectedIndex = 1;
 
   get user(): User | null {
     return this.fireService.user;
@@ -24,12 +26,6 @@ export class MainPageComponent implements OnInit {
 
   async login() {
     this.fireService.login();
-    // try {
-    //   const provider = new GoogleAuthProvider();
-    //   await signInWithRedirect(this.auth, provider);
-    // } catch (e) {
-    //   console.log(e);
-    // }
   }
 
   showSpinner() {
@@ -56,8 +52,12 @@ export class MainPageComponent implements OnInit {
     return style.includes("e-spinner-pane");
   }
 
-  selecting(event: any) {
-    this.selectedItem = event?.selectingItem?.textContent;
-    console.log(event);
+  selected(event: any) {
+    this.tabs?.enableTab(0, false);
+    this.selectedIndex = event.selectedIndex;
+  }
+
+  selecting() {
+    this.tabs?.enableTab(0, true);
   }
 }

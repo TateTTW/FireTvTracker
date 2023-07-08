@@ -11,7 +11,7 @@ import {MediaItemDialogComponent} from "../media-item-dialog/media-item-dialog.c
   templateUrl: './saved-page.component.html',
   styleUrls: ['./saved-page.component.less']
 })
-export class SavedPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SavedPageComponent implements OnInit, OnDestroy {
   @ViewChild(DashboardLayoutComponent) private dashboard?: DashboardLayoutComponent;
   @ViewChild(MediaItemDialogComponent) private dialog?: MediaItemDialogComponent;
 
@@ -30,10 +30,6 @@ export class SavedPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
   ngOnDestroy(): void {
