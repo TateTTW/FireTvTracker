@@ -1,10 +1,4 @@
-<div id="header">
-  <h1 id="title">Tv Tracker</h1>
-  <div id="loginBtn" *ngIf="!user">
-    <button ejs-button isPrimary="true" (click)="login()">Login</button>
-  </div>
-</div>
-<ejs-tab (selecting)="selecting($event)">
+<ejs-tab (selected)="selected($event)" [reorderActiveTab]="false" (selecting)="selecting()">
   <e-tabitems>
     <e-tabitem>
       <ng-template #headerText>
@@ -18,7 +12,7 @@
         Browse
       </ng-template>
       <ng-template #content>
-        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == ' Browse '"></browse-page>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 1"></browse-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem *ngIf="user">
@@ -26,7 +20,12 @@
         Saved
       </ng-template>
       <ng-template #content>
-        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedItem == ' Saved '"></saved-page>
+        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 2"></saved-page>
+      </ng-template>
+    </e-tabitem>
+    <e-tabitem [disabled]="true" cssClass="loginTab">
+      <ng-template #headerText>
+        <button ejs-button isPrimary="true" (click)="login()" *ngIf="!user">Login</button>
       </ng-template>
     </e-tabitem>
   </e-tabitems>
