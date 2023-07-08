@@ -53,11 +53,6 @@ export class MainPageComponent implements OnInit {
   }
 
   selected(event: any) {
-    this.tabs?.enableTab(0, false);
     this.selectedIndex = event.selectedIndex;
-  }
-
-  selecting() {
-    this.tabs?.enableTab(0, true);
   }
 }

@@ -1,18 +1,19 @@
-<ejs-tab (selected)="selected($event)" [reorderActiveTab]="false" (selecting)="selecting()">
+<ejs-tab (selected)="selected($event)">
   <e-tabitems>
-    <e-tabitem>
+    <e-tabitem *ngIf="!user">
       <ng-template #headerText>
         <h1 id="title">Tv Tracker</h1>
       </ng-template>
       <ng-template #content>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()"></browse-page>
       </ng-template>
     </e-tabitem>
-    <e-tabitem>
+    <e-tabitem *ngIf="user">
       <ng-template #headerText>
         Browse
       </ng-template>
       <ng-template #content>
-        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 1"></browse-page>
+        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 0"></browse-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem *ngIf="user">
@@ -20,7 +21,7 @@
         Saved
       </ng-template>
       <ng-template #content>
-        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 2"></saved-page>
+        <saved-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 1"></saved-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem [disabled]="true" cssClass="loginTab">
