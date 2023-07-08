@@ -21,6 +21,10 @@ export class MediaItemDialogComponent implements OnInit {
     return this.fireService.user;
   }
 
+  get height(): string {
+    return window.innerHeight <= 800 ? "100%" : "auto";
+  }
+
   get poster(): string {
     return this.details?.Poster && this.details?.Poster != "N/A" ? this.details?.Poster : "assets/images/noImage.png"
   }
