@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ImdbService} from "../imdb.service";
 import {DashboardLayoutComponent} from "@syncfusion/ej2-angular-layouts";
 import {FireService} from "../fire.service";
@@ -123,7 +123,7 @@ export class SavedPageComponent implements OnInit, OnDestroy {
     for (let item of items) {
       if (col > this.maxCol) {
         col = 0;
-        row += 1;
+        row += 2;
       }
 
       const poster = decodeURIComponent(item.poster);

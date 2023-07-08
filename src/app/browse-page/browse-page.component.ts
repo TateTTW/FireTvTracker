@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ImdbService} from "../imdb.service";
 import {DashboardLayoutComponent} from "@syncfusion/ej2-angular-layouts";
 import {MediaResponse} from "../interfaces/media-response";
