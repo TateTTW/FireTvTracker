@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "firebase/auth";
 import {FireService} from "../fire.service";
 import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-popups";
-import {TabComponent} from "@syncfusion/ej2-angular-navigations";
 
 @Component({
   selector: 'main-page',
@@ -10,7 +9,6 @@ import {TabComponent} from "@syncfusion/ej2-angular-navigations";
   styleUrls: ['./main-page.component.less']
 })
 export class MainPageComponent implements OnInit {
-  @ViewChild(TabComponent) private tabs?: TabComponent;
 
   selectedIndex = 1;
 

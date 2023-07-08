@@ -12,12 +12,12 @@
     </table>
     <table *ngIf="!details?.folder && user">
       <tr>
-        <td><ejs-combobox #folder></ejs-combobox></td>
-        <td><button ejs-button isPrimary="true" (click)="save(folder.value)">Save</button></td>
+        <td><ejs-combobox #folder placeholder="Folder"></ejs-combobox></td>
+        <td><button ejs-button isPrimary="true" (click)="save(folder.value)" [disabled]="!folder.value">Save</button></td>
       </tr>
     </table>
-    <table *ngIf="details?.folder">
-      <tr><td><button ejs-button isPrimary="true" (click)="delete()" [disabled]="!user">Delete</button></td></tr>
+    <table *ngIf="details?.folder && user">
+      <tr><td><button ejs-button isPrimary="true" (click)="delete()">Delete</button></td></tr>
     </table>
   </div>
 </ejs-dialog>
