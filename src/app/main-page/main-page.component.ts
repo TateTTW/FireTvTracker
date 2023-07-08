@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "firebase/auth";
 import {FireService} from "../fire.service";
 import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-popups";
@@ -11,6 +11,10 @@ import {createSpinner, hideSpinner, showSpinner} from "@syncfusion/ej2-angular-p
 export class MainPageComponent implements OnInit {
 
   selectedIndex = 1;
+
+  text = "Movie";
+  isMovie = true;
+  page = 1;
 
   get user(): User | null {
     return this.fireService.user;
@@ -52,5 +56,12 @@ export class MainPageComponent implements OnInit {
 
   selected(event: any) {
     this.selectedIndex = event.selectedIndex;
+  }
+
+  selecting(event: any) {
+    if (!this.user && event.selectingIndex == 1) {
+      event.cancel = true;
+    }
+    console.log(event);
   }
 }

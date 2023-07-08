@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ImdbService} from "../imdb.service";
 import {DashboardLayoutComponent} from "@syncfusion/ej2-angular-layouts";
 import {MediaResponse} from "../interfaces/media-response";
@@ -13,14 +13,21 @@ export class BrowsePageComponent implements OnInit {
   @ViewChild(DashboardLayoutComponent) private dashboard?: DashboardLayoutComponent;
   @ViewChild(MediaItemDialogComponent) private dialog?: MediaItemDialogComponent;
 
+  // Two-way bindable fields
+  @Input()  text = "Movie";
+  @Output() textChange = new EventEmitter<string>();
+
+  @Input()  isMovie = true;
+  @Output() isMovieChange = new EventEmitter<boolean>();
+
+  @Input()  page = 1;
+  @Output() pageChange = new EventEmitter<number>();
+
+  // Events
   @Output() showSpinner: EventEmitter<any> = new EventEmitter<any>();
   @Output() hideSpinner: EventEmitter<any> = new EventEmitter<any>();
 
   response: MediaResponse = { Search: [], totalResults: '0', Response: 'True'}
-
-  text = "";
-  isMovie = true;
-  page = 1;
 
   get showPrevNav(): boolean {
     return this.page > 1;
@@ -37,15 +44,20 @@ export class BrowsePageComponent implements OnInit {
   }
 
   dashCreated() {
-    this.search({ text: "Movie", isMovie: true, page: 1 });
+    this.search({ text: this.text, isMovie: this.isMovie, page: this.page });
   }
 
   async search(param: { text: string; isMovie: boolean; page: number }) {
     this.showSpinner.emit();
 
-    this.text = param.text;
+    this.text = param.text.trim();
+    this.textChange.emit(param.text);
+
     this.isMovie = param.isMovie;
+    this.isMovieChange.emit(param.isMovie);
+
     this.page = param.page;
+    this.pageChange.emit(param.page);
 
     try {
       this.response = await this.imdbService.browse(this.text, this.isMovie ? 'movie' : 'series', this.page).toPromise();

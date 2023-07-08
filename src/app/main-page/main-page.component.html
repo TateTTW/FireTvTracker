@@ -1,4 +1,4 @@
-<ejs-tab (selected)="selected($event)">
+<ejs-tab (selected)="selected($event)" (selecting)="selecting($event)">
   <e-tabitems>
     <e-tabitem *ngIf="!user">
       <ng-template #headerText>
@@ -13,7 +13,7 @@
         Browse
       </ng-template>
       <ng-template #content>
-        <browse-page (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 0"></browse-page>
+        <browse-page [(text)]="text" [(isMovie)]="isMovie" [(page)]="page" (showSpinner)="showSpinner()" (hideSpinner)="hideSpinner()" *ngIf="selectedIndex == 0"></browse-page>
       </ng-template>
     </e-tabitem>
     <e-tabitem *ngIf="user">

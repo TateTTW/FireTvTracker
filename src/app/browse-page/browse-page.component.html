@@ -4,8 +4,8 @@
   </table>
   <table>
     <tr>
-      <td><ejs-radiobutton #movie label="Movie" value="Movie" name="type" checked="true"></ejs-radiobutton></td>
-      <td><ejs-radiobutton label="Tv" value="Tv" name="type"></ejs-radiobutton></td>
+      <td><ejs-radiobutton #movie label="Movie" value="Movie" name="type" [checked]="isMovie"></ejs-radiobutton></td>
+      <td><ejs-radiobutton label="Tv" value="Tv" name="type" [checked]="!isMovie"></ejs-radiobutton></td>
       <td><ejs-textbox #searchTxt></ejs-textbox></td>
       <td><button ejs-button isPrimary=true (click)="search({text: searchTxt.value, isMovie: movie.checked, page: 1})">Search</button></td>
     </tr>
